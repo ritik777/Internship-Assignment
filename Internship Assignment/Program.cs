@@ -9,6 +9,7 @@ namespace Internship_Assignment
        
         static void Main(string[] args)
         {
+            Console.Write("Distinguish Strings are");
             int y =LongestSubstring("cccpoiijklmnoo");
             Console.WriteLine(y);
         }
