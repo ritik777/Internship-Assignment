@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace Internship_Assignment
@@ -10,8 +11,12 @@ namespace Internship_Assignment
         static void Main(string[] args)
         {
             Console.Write("Distinguish Strings are");
-            int y =LongestSubstring("cccpoiijklmnoo");
+            int y =LongestSubstring("cccpoiijklmnooasdfghjklqwer");
             Console.WriteLine(y);
+
+            int[] q4 = new int[] { 2, 2, 2, 4, 4, 4,6,7,8,9,9 };
+            ContainsDuplicate(q4);
+            
         }
 
         public static int LongestSubstring(String s)
@@ -56,6 +61,30 @@ namespace Internship_Assignment
                 }
             }
             return length;
+
+        }
+        public static void ContainsDuplicate(int[] arr) {
+
+            Dictionary<int, int> myDict = new Dictionary<int, int>();
+            int value = 1;
+            for (int i = 0; i < arr.Length; i++) {
+                if (!myDict.ContainsKey(arr[i]))
+                {
+                    myDict.Add(arr[i], value);
+                }
+                else {
+                    myDict[arr[i]] = value + 1;
+                }
+            
+            }
+
+            foreach (KeyValuePair<int, int> item in myDict)
+            {
+                if (item.Value > 1)
+                {
+                    Console.Write(" " + item.Key);
+                }
+            }
 
         }
     }
