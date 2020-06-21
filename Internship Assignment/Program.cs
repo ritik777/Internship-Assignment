@@ -22,6 +22,8 @@ namespace Internship_Assignment
             Console.WriteLine(" ");
             PascalTriangle(5);
 
+            FindPascalRow(5);
+
         }
 
         public static int LongestSubstring(String s)
@@ -138,16 +140,19 @@ namespace Internship_Assignment
 
             for (int i = 0; i < numrows; i++) {
                 for (int j = 0; j <= i; j++) {
+                    /*logic for implementing corners as 1 and middle 
+                    elements as addition of immediate upper elements*/
                     if (j == 0 || j == i)
                     {
                         array[i, j] = 1;
                     }
                     else {
+                    // if its not corners then array[i,j] is addition of upper elements in the triangles
                         array[i, j] = array[i - 1, j-1] + array[i - 1, j];
                     }
                 }
             }
-
+            //printing the array that results in a pascal triangle
             for (int i = 0; i < numrows; i++) {
                 for (int j = 0; j <= i; j++) {
                     Console.Write(" " + array[i,j]);
@@ -155,6 +160,40 @@ namespace Internship_Assignment
                 Console.WriteLine(" ");
             }
             
+        }
+
+        public static void FindPascalRow(int k) {
+            /* To find the kth row from pascal triangle:
+             * I did not want to use the exact code as above and print the last line.
+             * Made some code and logic changes to accomplish the goal
+
+            Algorithm :
+            * created two single dimensional arrays with size k.
+            * one of them being temporary array to solve the preceeding line for pascals triangle
+            * copied temporary array to main array for each iteration until k iterations.
+       */
+            // initialized the temp array and main_array
+            int[] temp = new int[k];
+            int[] main_array = new int[k];
+
+
+            for (int i = 0; i < k; i++) {
+                for (int j = 0; j <= i; j++) {
+                    if (j == 0 || j == i)
+                    {
+                        temp[j] = 1;
+                    }
+                    else {
+                        temp[j] = main_array[j-1] + main_array[j];
+                    }
+                }
+                temp.CopyTo(main_array, 0);
+            }
+            for (int i = 0; i < main_array.Length; i++) {
+                Console.Write(" " + main_array[i]);
+            }
+        
+        
         }
     }
 }
