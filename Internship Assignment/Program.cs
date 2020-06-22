@@ -19,17 +19,39 @@ namespace Internship_Assignment
             int y =LongestSubstring(s);
             Console.WriteLine("Longest substring in " + s +" has length " + y);
 
+
+            Console.WriteLine(" ");
+            Console.WriteLine("enter number of lines for pascal triangle");
+            Console.WriteLine(" ");
+            int num_lines1 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Pascal triangle is as follows");
+            PascalTriangle(num_lines1);
+
+            Console.WriteLine(" ");
+            Console.WriteLine("enter kth row to find in pascal triangle");
+            Console.WriteLine(" ");
+            int k_line1 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("elements ar line" +k_line1+ "are as follows");
+            Console.WriteLine(" ");
+            FindPascalRow(k_line1);
+
            
 
 
 
-            int[] q4 = new int[] { 2, 2, 2, 4, 4, 4,6,7,8,9,9 };
+            Console.WriteLine("  ");
+            int[] q4 = new int[] { 6, 21, 100, 6, 21, 11 };
+            Console.WriteLine("Duplicates in" + " { 6, 21, 100, 6, 21, 11 }" + "are");
+            Console.WriteLine("");
             ContainsDuplicate(q4);
+            Console.WriteLine("");
+            Console.WriteLine("  ");
+            int[] q5 = new int[] { 3, 47, 200, 47, 3, 100000, 200, 3, 200 };
+            Console.WriteLine("Duplicates in" + " { 3, 47, 200, 47, 3, 100000, 200, 3, 200 }" + "are");
+            Console.WriteLine("");
+            ContainsDuplicate(q5);
 
-            Console.WriteLine(" ");
-            PascalTriangle(5);
 
-            FindPascalRow(5);
 
         }
 
@@ -69,14 +91,15 @@ The substring with largest length wins.*/
                     // if match is found
                     if (s[i] == s[j])
                     {
-                        // determing l from counter till match point
+                        // we need l for substring function to know till what length are  we extracting string
                         int l = i - counter;
                         // length of substring till counter i
                         new_length = s.Substring(counter,l ).Length;
-                        // new counter.
-                        // for instance if pqqkew is string then we got the substring till pq
-                        /* now new counter is at q of qkew and i will move to k and backtracing will restart
-                                                            |      */
+                       
+                         /*for instance if pqqkew is string then we got the substring till pq
+                         now new counter is at q of qkew and i will move to k and backtracing will restart*/
+                         
+                        //new counter
                         counter = i;               
                         if (new_length > length)
                         {
@@ -103,19 +126,26 @@ The substring with largest length wins.*/
         }
         public static void ContainsDuplicate(int[] arr) {
 
+            //created a dictionary with key and values as integers
             Dictionary<int, int> myDict = new Dictionary<int, int>();
+            //initialized value to 1
             int value = 1;
+            // iterated through each element of the array
             for (int i = 0; i < arr.Length; i++) {
+                 /*if dictionary does not have that element has 
+                the key push that element as the key with value as 1*/
                 if (!myDict.ContainsKey(arr[i]))
                 {
                     myDict.Add(arr[i], value);
                 }
                 else {
+                    // else if key as already present then increment value of 1 that denotes count of that element
                     myDict[arr[i]] = value + 1;
                 }
             
             }
 
+            //print keys with values greater than 1
             foreach (KeyValuePair<int, int> item in myDict)
             {
                 if (item.Value > 1)
