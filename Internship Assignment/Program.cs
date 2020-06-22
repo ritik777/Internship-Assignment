@@ -12,9 +12,16 @@ namespace Internship_Assignment
        
         static void Main(string[] args)
         {
-            Console.Write("Distinguish Strings are");
-            int y =LongestSubstring("cccpoiijklmnooasdfghjklqwer");
-            Console.WriteLine(y);
+            Console.Write("Enter the string");
+            Console.WriteLine("    ");
+            String s = Console.ReadLine();
+            Console.WriteLine("    ");
+            int y =LongestSubstring(s);
+            Console.WriteLine("Longest substring in " + s +" has length " + y);
+
+           
+
+
 
             int[] q4 = new int[] { 2, 2, 2, 4, 4, 4,6,7,8,9,9 };
             ContainsDuplicate(q4);
@@ -28,8 +35,24 @@ namespace Internship_Assignment
 
         public static int LongestSubstring(String s)
         {
+            /*To calculate the longest substring in a string with no repeating characters
+•	My approach was to check each subsequent character in the string with the characters behind.
+•	If there is a match of a subsequent character with any character behind, then I break the string using substr function till that subsequent character and determine length of that substring.
 
-            //dg
+For Instance: if the string is “a b d a d f” 
+Then I will have pointer 1 at first place i.e  ‘a’. pointer 2 at second place i.e ‘b’
+
+1)	b will be checked against a. No match then pointer 2 will move to ‘d’.
+2)	pointer 2 will backtrace and check b and a.No match then pointer 2 moves to ‘a’.
+3)	pointer 2 will backtrace and check ‘d’, ‘b’ and ‘a’. there is a match
+4)	substring till 4th place a i.e “abd” is taken out. Length is determined.
+5)	Pointer 1 is changed to now 4th place ‘a’ (position of match) and pointer 2 to one position after that.i.e ‘d’. 
+The whole process from 1 repeat but for subsequent characters till end of string
+
+The substring with largest length wins.*/
+
+
+
             int counter = 0;
             //converting string to character array
             char[] char_array = s.ToCharArray();
@@ -40,14 +63,21 @@ namespace Internship_Assignment
             int i = 1;
 
             for ( i = 1; i < char_array.Length; i++)
-            {
+            {  // inner loop decrements till counter
                 for (int j = i - 1; j >= counter; j--)
                 {
+                    // if match is found
                     if (s[i] == s[j])
                     {
+                        // determing l from counter till match point
                         int l = i - counter;
+                        // length of substring till counter i
                         new_length = s.Substring(counter,l ).Length;
-                        counter = i;
+                        // new counter.
+                        // for instance if pqqkew is string then we got the substring till pq
+                        /* now new counter is at q of qkew and i will move to k and backtracing will restart
+                                                            |      */
+                        counter = i;               
                         if (new_length > length)
                         {
                             length = new_length;
@@ -58,6 +88,7 @@ namespace Internship_Assignment
                 }
 
             }
+            //tail end substring length match to determine largest length
             if (i == char_array.Length)
             {
                 int w = i - counter;
@@ -114,7 +145,7 @@ namespace Internship_Assignment
             similarly 
             121
             1331
-            we can see 1+1 and 2+1 in line 3 is giving -> 3 and 3 surrounded by 1 to line 4. 
+            we can see 1+1 and 2+1 in line 3 is giving -> 3 and 3 surrounded by 1 in line 4. 
              */
 
             /*Algorithm:
@@ -127,7 +158,7 @@ namespace Internship_Assignment
              so array addition for line 3 which is derived from line 2 or array with 2nd line
                               , array[3][1] =1 
                                      [3][2] = [2][0] + [2][1]
-                                     [3][3] = [2][2] + [2][2]
+                                     [3][3] = [2][1] + [2][2]
                                      [3][3] = 1
                         operation to perform similarly for each line
              
@@ -176,19 +207,25 @@ namespace Internship_Assignment
             int[] temp = new int[k];
             int[] main_array = new int[k];
 
-
+            // outer loop denotes each line
             for (int i = 0; i < k; i++) {
+                // inner loop denotes values in a line
                 for (int j = 0; j <= i; j++) {
+                    // code to convert corner values to 1
                     if (j == 0 || j == i)
                     {
                         temp[j] = 1;
                     }
                     else {
+                        // temp array includes values in that line which were computed from previous line
                         temp[j] = main_array[j-1] + main_array[j];
                     }
                 }
+                // temp array is copied to main array, to compute new line values from this main array.
+                // The values in new line is stored in temp and is then copied to main array everytime until k is reached.
                 temp.CopyTo(main_array, 0);
             }
+            //printing values of kth line
             for (int i = 0; i < main_array.Length; i++) {
                 Console.Write(" " + main_array[i]);
             }
